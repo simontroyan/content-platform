@@ -69,6 +69,14 @@ class ApiContract(unittest.TestCase):
         self.assertIn('drafts', body['features'])
         self.assertEqual(self.request('/not-found')[0], 404)
 
+    def test_feature_details_and_unknown_feature(self):
+        status, body = self.request('/api/features/drafts')
+        self.assertEqual(status, 200)
+        self.assertEqual(body['name'], 'drafts')
+        self.assertTrue(body['description'])
+        self.assertEqual(body['version'], 'v2')
+        self.assertEqual(self.request('/api/features/unknown')[0], 404)
+
 
 if __name__ == '__main__':
     unittest.main()
