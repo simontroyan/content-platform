@@ -26,6 +26,22 @@ class Handler(BaseHTTPRequestHandler):
                 "features": ["content-calendar", "drafts"],
                 "version": "v2",
             }
+        elif path.startswith("/api/features/"):
+            feature_name = path.removeprefix("/api/features/")
+            features = {
+                "content-calendar": {
+                    "name": "content-calendar",
+                    "description": "Plan and organize scheduled content.",
+                },
+                "drafts": {
+                    "name": "drafts",
+                    "description": "Save content before it is published.",
+                },
+            }
+            if feature_name in features:
+                status, payload = 200, {**features[feature_name], "version": "v2"}
+            else:
+                status, payload = 404, {"error": "not found"}
         else:
             status, payload = 404, {"error": "not found"}
         data = json.dumps(payload).encode("utf-8")
