@@ -61,6 +61,7 @@ class ApiContract(unittest.TestCase):
         self.assertEqual(body['service'], 'content-api')
         self.assertEqual(body['environment'], 'lab')
         self.assertTrue(body['instance'])
+        self.assertTrue(body['architecture'])
         self.assertEqual(body['version'], 'v2')
 
     def test_features_and_unknown_path(self):

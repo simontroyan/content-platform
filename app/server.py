@@ -1,6 +1,7 @@
 """Second release of the content platform API; no third-party packages required."""
 import json
 import os
+import platform
 import socket
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit
@@ -19,6 +20,7 @@ class Handler(BaseHTTPRequestHandler):
                 "service": "content-api",
                 "environment": ENVIRONMENT,
                 "instance": socket.gethostname(),
+                "architecture": platform.machine(),
                 "version": "v2",
             }
         elif path == "/api/features":
