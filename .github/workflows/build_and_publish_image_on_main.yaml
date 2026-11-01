@@ -23,3 +23,4 @@ jobs:
           with:
             push: true
             tags: saymontr/content-api:${{ github.sha }}
+            platforms: linux/arm64
