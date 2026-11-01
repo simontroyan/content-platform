@@ -1,4 +1,4 @@
-"""Minimal content-platform API for a Kubernetes deployment exercise."""
+"""Second release of the content platform API; no third-party packages required."""
 import json
 import os
 import socket
@@ -12,13 +12,19 @@ ENVIRONMENT = os.environ.get("APP_ENV", "unset")
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = urlsplit(self.path).path
-        if path == "/healthz":
+        if path in ("/healthz", "/readyz"):
             status, payload = 200, {"status": "ok"}
         elif path == "/api/info":
             status, payload = 200, {
                 "service": "content-api",
                 "environment": ENVIRONMENT,
                 "instance": socket.gethostname(),
+                "version": "v2",
+            }
+        elif path == "/api/features":
+            status, payload = 200, {
+                "features": ["content-calendar", "drafts"],
+                "version": "v2",
             }
         else:
             status, payload = 404, {"error": "not found"}
