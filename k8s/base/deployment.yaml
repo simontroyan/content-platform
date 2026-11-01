@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: content-deployment
-  namespace: content-lab
   labels:
     app: content-api
 spec:
@@ -17,7 +16,7 @@ spec:
     spec:
       containers:
         - name: content-api
-          image: saymontr/content-api:v1
+          image: saymontr/content-api
           ports:
             - containerPort: 8080
               name: content-api
