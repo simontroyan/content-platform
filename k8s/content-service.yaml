@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: content-service
+  namespace: content-lab
+spec:
+  selector:
+    app: content-api
+  ports:
+    - name: content-api-port
+      protocol: TCP
+      port: 80
+      targetPort: content-api

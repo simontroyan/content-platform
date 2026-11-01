@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-deployment
+  namespace: content-lab
+  labels:
+    app: content-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: content-api
+  template:
+    metadata:
+      labels:
+        app: content-api
+    spec:
+      containers:
+        - name: content-api
+          image: saymontr/content-api:v1
+          ports:
+            - containerPort: 8080
+              name: content-api
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: content-config
+                  key: APP_ENV
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"

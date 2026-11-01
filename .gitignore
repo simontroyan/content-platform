@@ -1,0 +1,12 @@
+.work/
+.mypy_cache/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.tfstate*
+*.tfvars
+.terraform/
+*.plan
+kubeconfig*

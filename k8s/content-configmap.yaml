@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: content-config
+  namespace: content-lab
+data:
+  APP_ENV: lab
